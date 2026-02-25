@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExtensionLens</title>
+  <link rel="stylesheet" href="/static/lib/prism-tomorrow.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== Extension Picker View ===== -->
+    <div id="picker-view">
+      <header id="picker-header">
+        <h1>ExtensionLens</h1>
+        <p class="subtitle">Browse installed Chrome extension source code</p>
+      </header>
+
+      <!-- Drag-drop upload zone -->
+      <div id="upload-zone">
+        <div class="upload-content">
+          <span class="upload-icon">📦</span>
+          <span class="upload-text">Drop <code>.crx</code> or <code>.zip</code> to inspect</span>
+        </div>
+        <input type="file" id="upload-input" accept=".crx,.zip" hidden>
+      </div>
+
+      <!-- Filter input -->
+      <div id="picker-filter-bar">
+        <input
+          type="text"
+          id="picker-search"
+          placeholder="Filter extensions..."
+          autocomplete="off"
+          spellcheck="false"
+        >
+      </div>
+
+      <!-- Extension card grid -->
+      <div id="extension-grid"></div>
+    </div>
+
+    <!-- ===== Viewer View ===== -->
+    <div id="viewer-view" hidden>
+
+      <!-- Top bar -->
+      <div id="topbar">
+        <button id="back-btn" title="Back to extensions">&larr;</button>
+        <div id="topbar-info">
+          <span id="ext-name"></span>
+          <span id="ext-version"></span>
+          <span id="ext-profile" class="profile-badge"></span>
+        </div>
+        <div id="topbar-spacer"></div>
+        <div id="search-bar">
+          <input
+            type="text"
+            id="global-search"
+            placeholder="Search in files..."
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <label class="search-option" title="Regular expression">
+            <input type="checkbox" id="search-regex"> <code>.*</code>
+          </label>
+          <label class="search-option" title="Case sensitive">
+            <input type="checkbox" id="search-case"> Aa
+          </label>
+          <button id="search-btn" title="Search">Search</button>
+        </div>
+      </div>
+
+      <!-- Main content area -->
+      <div id="main">
+        <!-- Left: file tree -->
+        <div id="file-tree-panel">
+          <div id="file-tree-header">Files</div>
+          <div id="file-tree" role="tree"></div>
+        </div>
+
+        <!-- Resizable splitter -->
+        <div id="splitter"></div>
+
+        <!-- Right: code viewer / search results -->
+        <div id="code-panel">
+          <div id="code-welcome">
+            <p>Select a file from the tree to view its source.</p>
+          </div>
+          <div id="search-results" hidden></div>
+          <div id="code-viewer" hidden>
+            <div id="code-file-bar">
+              <span id="code-file-path"></span>
+              <span id="code-file-size"></span>
+            </div>
+            <pre id="code-pre"><code id="code-block"></code></pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Prism syntax highlighting -->
+  <script src="/static/lib/prism.min.js"></script>
+  <script src="/static/lib/prism-javascript.min.js"></script>
+  <script src="/static/lib/prism-css.min.js"></script>
+  <script src="/static/lib/prism-markup.min.js"></script>
+  <script src="/static/lib/prism-json.min.js"></script>
+  <script src="/static/lib/prism-bash.min.js"></script>
+  <script src="/static/lib/prism-python.min.js"></script>
+
+  <!-- Application logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
